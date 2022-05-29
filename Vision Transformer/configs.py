@@ -15,14 +15,14 @@ class CONFIG:
     # data augmentation
     resize        = 32            # resize the size of the image
     augmentation  = True
-    cut           = 56            # size of Cutout, set to zero to disable
+    cut           = 4             # size of Cutout, set to zero to disable
     mix           = True          # enable (True) / disable (False) Mixup
                                   # When cut > 0 and mix == True, then it activates CutMix
     
     # transformer architecture
     channels          = 192       # = embed_dim
     hidden_size       = 768       # hidden size in the MLP layer
-    patch_size        = 4         # size of each patch
+    patch_size        = 4         # size of each patch212d
     num_heads         = 3         # number of heads in multihead attention
     encode_layers     = 12        # number of encoders
     pos_encoding      = True      # whether or not use the positional encoding

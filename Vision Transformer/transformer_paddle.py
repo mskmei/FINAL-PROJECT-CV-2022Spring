@@ -138,7 +138,28 @@ class VisionTransformer(paddle.nn.Layer):
                         patch_size = 16, 
                         num_heads = 3, encode_layers = 12, 
                         pos_encoding = True,
-                        linear_dropout = 0., attention_dropout = 0., encoding_dropout = 0.):
+                        linear_dropout = 0., attention_dropout = 0., encoding_dropout = 0.):   
+        """
+        Vision Transformer
+
+        Parameters
+        --------
+        input_size   : int, the input image should be of size input_size * input_size
+        output_size  : int, the number of classes to classify
+        channels     : int, the embedding dimension
+        hidden_size  : int, the size of hidden layer in MLP
+        patch_size   : int, the size of a patch
+        num_heads    : int, number of heads
+        encode_layers: int, number of encoders
+        pos_encoding : bool, whether or not use the positional encoding
+        linear_dropout   : float, dropout rate in MLP
+        attention_dropout: float, dropout rate in multihead attention
+        encoding_dropout : float, dropout rate after positional encoding
+
+
+        Reference: 
+        https://arxiv.org/abs/2010.11929 
+        """
         super().__init__()
 
         assert input_size % patch_size == 0, 'Input size must be divisible by patch size.'

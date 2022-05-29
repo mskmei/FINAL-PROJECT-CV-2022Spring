@@ -108,12 +108,14 @@ class MLPLayer(torch.nn.Module):
         output_size   = output_size or input_size 
         
         self.dense1   = torch.nn.Linear(input_size, hidden_size)
+        torch.nn.init.xavier_uniform_(self.dense1.weight)
 
         self.act1     = torch.nn.LeakyReLU()
         self.dropout1 = torch.nn.Dropout(dropout)
 
 
         self.dense2   = torch.nn.Linear(hidden_size, output_size)
+        torch.nn.init.xavier_uniform_(self.dense2.weight)
             
         #self.act2     = torch.nn.LeakyReLU()
         self.dropout2 = torch.nn.Dropout(dropout)
@@ -235,40 +237,44 @@ class VisionTransformer(torch.nn.Module):
         with torch.no_grad():
             _ = self.forward(x)
 
-        # initialization
-        attention = torch.eye((self.input_size // self.patch_size)**2 + 1).unsqueeze(0)
-        for i in range(layer):
-            # weight size = 65 * 65
-            weight = torch.mean(self.encoders[i].attention.attention, dim = 1)
+            device = self.cls_token.device
 
-            # bias
-            weight += torch.eye(weight.shape[-1])
+            # initialization
+            attention = torch.eye((self.input_size // self.patch_size)**2 + 1,
+                                device = device).unsqueeze(0)
+            for i in range(layer):
+                # weight size = 65 * 65
+                weight = torch.mean(self.encoders[i].attention.attention, dim = 1)
+
+                # bias
+                weight += torch.eye(weight.shape[-1], device = device)
+                
+                # normalize
+                weight /= torch.tile(torch.sum(weight, dim = -1).unsqueeze(-1), (1, 1, weight.shape[-1]))
+
+                # accumalate along the layers
+                attention = torch.matmul(weight, attention)
             
+            # drop the class token in the front
+            attention = attention[:, 0, 1:]
+
             # normalize
-            weight /= torch.tile(torch.sum(weight, dim = -1).unsqueeze(-1), (1, 1, weight.shape[-1]))
+            attention = attention  / torch.max(attention, dim = -1)[0].unsqueeze(-1)
 
-            # accumalate along the layers
-            attention = torch.matmul(weight, attention)
-        
-        # drop the class token in the front
-        attention = attention[:, 0, 1:]
+            # reshape
+            attention = attention.reshape((x.shape[0], 1, 
+                            self.input_size // self.patch_size, self.input_size // self.patch_size))
 
-        # normalize
-        attention = attention  / torch.max(attention, dim = -1).unsqueeze(-1)
-
-        # reshape
-        attention = attention.reshape((x.shape[0], 1, 
-                        self.input_size // self.patch_size, self.input_size // self.patch_size))
-
-        # tile up to restore the original size of the image by transpose2d
-        attention = torch.nn.functional.conv2d_transpose(
-                        attention,
-                        torch.zeros((1,3, self.patch_size, self.patch_size), dtype = 'float32') + 1,
-                        stride = self.patch_size)
-        
-        # place the attention map in the alpha channel (rgba imgs)
-        imgs = torch.cat((x, attention[:,:1]), dim = 1)
-        imgs = imgs.permute((0,2,3,1)).numpy()
+            # tile up to restore the original size of the image by transpose2d
+            attention = torch.nn.functional.conv_transpose2d(
+                            attention,
+                            torch.zeros((1,3, self.patch_size, self.patch_size), 
+                                        dtype = torch.float32, device = device) + 1,
+                            stride = self.patch_size)
+            
+            # place the attention map in the alpha channel (rgba imgs)
+            imgs = torch.cat((x, attention[:,:1]), dim = 1)
+            imgs = imgs.permute((0,2,3,1)).cpu().numpy()
 
         if 'int' in dtype:
             imgs = (imgs * 255.).clip(0, 255).astype('uint8')

@@ -26,4 +26,10 @@ Furthermore, these three models are all pretrained on the Cityscapes dataset. Yo
  
  Deeplabv3:  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Semantic%20Segamentation/deeplabv3.ipynb)  
  
- If you only need to test the example video we provide, then you only need to execute each line in colab in turn。
+ If you only need to test the example video we provide, then you only need to execute each line in colab in turn. If you want to test your own video or use your own weight, you just need to change the "gdown" function. It should look like:
+ ```python
+import gdown
+gdown.download('https://drive.google.com/uc?id=your_share_id_for_video', 'use.mp4', quiet=False)
+gdown.download('https://drive.google.com/uc?id=your_share_id_for_weight', 'psp101.pth', quiet=False)
+ ```
+Note that share id can be got from Google Drive.

@@ -60,10 +60,44 @@ To build PSP101 or PSA101, first of all, let's get files from github:
  Next, Run the code to test on pspnet101:
  
  ```bash
- cd /path/to/pspnet-pasnet
+ cd pspnet-pasnet
  python testdemo.py --config=/content/pspnet-pasnet/config/cityscapes/cityscapes_pspnet101.yaml --image=/path/to/your_images TEST.scales '[1.0]'
  # if you want test on psanet101, just run the following code
  # python testdemo.py --config=/content/pspnet-pasnet/config/cityscapes/cityscapes_psanet101.yaml --image=/path/to/your_images TEST.scales '[1.0]'
  ```
  
  The results will be stored in a directory named out by default.(This can be changed by modifying testdemo.py)
+ </details>
+ 
+ <details open>
+ <summary>Deeplabv3</summary>
+ The same as PSP101 and PSA101, we need to get files from github first:
+ 
+ ```bash
+ git clone https://github.com/mskmei/DeepLabV3Plus-Pytorch.git
+ ```
+ 
+ Then we need to install some required packages, you may run:
+ 
+ ```bash
+ cd DeepLabV3Plus-Pytorch
+ pip install -r requirements.txt
+ ```
+ And import required packages as:
+ 
+ ```python
+ import network
+ import torch
+ ```
+ 
+ Ensure that you have prepared needed pretrained weights and video, then load the model through:
+ 
+ ```python
+ model.load_state_dict(torch.load('/path/to/DeepLabV3Plus-Pytorch/weights.pth')['model_state'])
+ ```
+ 
+ Then simply test using the following code:
+ 
+ ```python
+ !python predict.py --inp /path/to/input_images/ --dataset cityscapes --model deeplabv3plus_mobilenet --ckpt /path/to/weights.pth --save_val_results_to output_dir
+ ```

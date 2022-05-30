@@ -101,6 +101,18 @@ To build PSP101 or PSA101, first of all, let's get files from github:
  ```bash
  python predict.py --inp /path/to/input_images/ --dataset cityscapes --model deeplabv3plus_mobilenet --ckpt /path/to/weights.pth --save_val_results_to output_dir
  ```
+ 
+ We also provide you with some example images. The following pictures are produced by PSP101, where the first one is only the result of semantic segmentation, and the second one is the image mixed with the original image in a ratio of 7:3.
+<div>
+<img src="samples/1psp.png"   width="40%">
+<img src="samples/1mixpsp.png"  width="40%">
+</div>
+ 
+ Comparing to PSA101:
+<div>
+<img src="samples/1psa.png"   width="40%">
+<img src="samples/1mixpsa.png"  width="40%">
+</div>
  </details>
  
  ## <div align="center">Video Processing</div>

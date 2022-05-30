@@ -57,11 +57,13 @@ To build PSP101 or PSA101, first of all, let's get files from github:
   model_path: /path/to/psp101.pth
  ```
  
- Next, Run the code:
+ Next, Run the code to test on pspnet101:
  
  ```bash
  cd /path/to/pspnet-pasnet
  python testdemo.py --config=/content/pspnet-pasnet/config/cityscapes/cityscapes_pspnet101.yaml --image=/path/to/your_images TEST.scales '[1.0]'
+ # if you want test on psanet101, just run the following code
+ # python testdemo.py --config=/content/pspnet-pasnet/config/cityscapes/cityscapes_psanet101.yaml --image=/path/to/your_images TEST.scales '[1.0]'
  ```
  
  The results will be stored in a directory named out by default.(This can be changed by modifying testdemo.py)

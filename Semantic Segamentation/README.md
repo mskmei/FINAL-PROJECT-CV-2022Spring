@@ -32,4 +32,29 @@ import gdown
 gdown.download('https://drive.google.com/uc?id=your_share_id_for_video', 'use.mp4', quiet=False)
 gdown.download('https://drive.google.com/uc?id=your_share_id_for_weight', 'psp101.pth', quiet=False)
  ```
-Note that share id can be got from Google Drive.
+Note that share id can be got from Google Drive. The following steps will introduce you how to build network to test figures but not videos.
+ </details>
+ 
+ <details open>
+ <summary>PSP101 & PSA101</summary>
+To build PSP101 or PSA101, first of all, let's get files from github:
+ 
+ ```bash
+ git clone https://github.com/mskmei/pspnet-pasnet.git
+ ```
+ 
+ Based on the requirements of the original open source code, we need to intall ninja. You may run code like:
+ 
+ ```bash
+ wget  https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
+ sudo unzip ninja-linux.zip -d /usr/local/bin/
+ sudo update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force
+ ```
+ 
+ Then make sure you have already have a pretraned weight file and a directory with images. If you don't carry out the experiment on colab, you may need to change the parameter "model_path" in the file "cityscapes_pspnet101.yaml" and "cityscapes_psanet101.yaml". It should be similar to:
+ 
+ ```python
+  model_path: /path/to/psp101.pth
+ ```
+ 
+ 

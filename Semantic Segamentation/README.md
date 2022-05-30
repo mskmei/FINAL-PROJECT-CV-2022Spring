@@ -53,7 +53,7 @@ To build PSP101 or PSA101, first of all, let's get files from github:
  
  Then make sure you have already have a pretraned weight file and a directory with images. If you don't carry out the experiment on colab, you may need to change the parameter "model_path" in the file "cityscapes_pspnet101.yaml" and "cityscapes_psanet101.yaml". It should be similar to:
  
- ```python
+ ```
   model_path: /path/to/psp101.pth
  ```
  

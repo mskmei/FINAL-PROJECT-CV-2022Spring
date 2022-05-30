@@ -57,7 +57,7 @@ To build PSP101 or PSA101, first of all, let's get files from github:
   model_path: /path/to/psp101.pth
  ```
  
- Next, Run the code to test on pspnet101:
+ Next run the code to test on pspnet101:
  
  ```bash
  cd pspnet-pasnet
@@ -71,7 +71,7 @@ To build PSP101 or PSA101, first of all, let's get files from github:
  
  <details open>
  <summary>Deeplabv3</summary>
- The same as PSP101 and PSA101, we need to get files from github first:
+ The same as PSP101 and PSA101, we need to getfilesfrom GitHubb first:
  
  ```bash
  git clone https://github.com/mskmei/DeepLabV3Plus-Pytorch.git
@@ -90,7 +90,7 @@ To build PSP101 or PSA101, first of all, let's get files from github:
  import torch
  ```
  
- Ensure that you have prepared needed pretrained weights and video, then load the model through:
+ Ensure that youhaveprepared thee  needed pretrained weights and video, then load the model through:
  
  ```python
  model.load_state_dict(torch.load('/path/to/DeepLabV3Plus-Pytorch/weights.pth')['model_state'])
@@ -98,6 +98,57 @@ To build PSP101 or PSA101, first of all, let's get files from github:
  
  Then simply test using the following code:
  
+ ```bash
+ python predict.py --inp /path/to/input_images/ --dataset cityscapes --model deeplabv3plus_mobilenet --ckpt /path/to/weights.pth --save_val_results_to output_dir
+ ```
+ </details>
+ 
+ ## <div align="center">Video Processing</div>
+ This part will give you a brief introduction of our method to process video. First import these packages:
+ 
  ```python
- !python predict.py --inp /path/to/input_images/ --dataset cityscapes --model deeplabv3plus_mobilenet --ckpt /path/to/weights.pth --save_val_results_to output_dir
+ import os
+ import shutil
+ import cv2
+ 
+ ```
+ 
+ The next function will help you to extract the video frame by frame as a picture：
+ 
+ ```python
+ def video_2_images(video_file= './road.mp4',   # declare the target video
+                   image_dir='./images/', 
+                   image_file='%s.jpg'):  
+ 
+    # Initial setting
+    i = 0
+    interval = 3
+    length = 600  # the max of frames
+    
+    cap = cv2.VideoCapture(video_file)
+    while(cap.isOpened()):
+        flag, frame = cap.read()  
+        if flag == False:  
+                break
+        if i == length*interval:
+                break
+        if i % interval == 0: 
+           cv2.imwrite(image_dir+image_file % str(int(i/interval)).zfill(6), frame)
+        i += 1 
+    cap.release()  
+
+# images folder reset
+if os.path.isdir('images'):
+    shutil.rmtree('images')
+os.makedirs('images', exist_ok=True)
+
+video_2_images()
+ ```
+ And the following code can help you stitch the processed pictures into a video named "output.mp4"：
+ 
+ ```python
+cd /your/directory
+if os.path.exists('./output.mp4'):
+   os.remove('./output.mp4')
+!ffmpeg -r 10 -i /path/to/iamges/%06d.png -vcodec libx264 -pix_fmt yuv420p output.mp4
  ```

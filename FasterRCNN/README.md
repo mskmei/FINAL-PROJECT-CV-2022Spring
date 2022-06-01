@@ -57,10 +57,12 @@ pip install -r requirements.txt
    
    
 ## Train
-Before trainig the model, 
-Train the model with this line of command:
+Before training and other operations, run **evaluation.py** first to get the ground-truth so that you can get the evaluation along the way.
+
+
+Train the model with this line of command (if you choose to train with a pretrained model else change the 'True' to 'False'):
 ```bash
-python train.py
+python train.py --pretrained True
 ```
 The code is default to use GPU when training, predicting, and testing, so if you use CPU to train the model, use this line of command:
 ```bash
@@ -90,12 +92,8 @@ python predict.py --weights --path-to/your trained model --img --path-to/FasterR
 There are four pretrained model you can download through Google Drive:
 Our pretrained model:
 
-vgg_faster.pth https://drive.google.com/file/d/1niTR2cD5di8_-JfQyPEpgeyHfGGyCiUr/view?usp=sharing
-
 resnet50_faster https://drive.google.com/file/d/1Ujds2mvsNLc8cXHH6827S-K_SfmV0Ssg/view?usp=sharing
 
 The pretrained model of Resnet50 and VGG for training:
 
 resnet50-19c8e357.pth https://drive.google.com/file/d/1Rq9Qk5xaphA56VTD2ysNvps6Ij2SPQbl/view?usp=sharing
-
-vgg16-397923af.pth https://drive.google.com/file/d/1Dq3F3lrX4Wwk-QEy-nNH1K7ECPVOrum8/view?usp=sharing

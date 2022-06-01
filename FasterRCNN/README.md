@@ -28,7 +28,7 @@ conda activate faster
 conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 pip install tensorflow
 pip install opencv-python
-cd FasterRCNN
+cd FINAL-PROJECT-CV-2022Spring/FasterRCNN
 pip install -r requirements.txt
 ```
 
@@ -57,7 +57,7 @@ pip install -r requirements.txt
    
    
 ## Train
-Before trainig the model, make sure you have changed the root_path in train.py.
+Before trainig the model, 
 Train the model with this line of command:
 ```bash
 python train.py

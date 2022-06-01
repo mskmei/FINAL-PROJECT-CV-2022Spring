@@ -158,7 +158,7 @@ class VisionTransformer(torch.nn.Module):
         # class tokens and (learnable) positional encodings
         self.cls_token = torch.nn.parameter.Parameter(torch.randn((1, 1, channels)))
         self.pos_encoding = torch.nn.parameter.Parameter(
-                            torch.randn((1, patch_num + 1, channels))) if pos_encoding is not None else None
+                            torch.randn((1, patch_num + 1, 1))) if pos_encoding is True else None
 
         self.dropout = torch.nn.Dropout(encoding_dropout)
 
@@ -279,3 +279,7 @@ class VisionTransformer(torch.nn.Module):
         if 'int' in dtype:
             imgs = (imgs * 255.).clip(0, 255).astype('uint8')
         return imgs, attention
+
+
+if __name__ == '__main__':
+    pass

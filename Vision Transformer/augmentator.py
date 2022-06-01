@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image 
 
 def augmentate(pics, labels = None, augmentation = False, 
-                cut = 0, mix = False, rotate = 15):
+                cut = 0, mix = False, rotate = 15, jitter = None):
     '''
     Simple data augmentator.
     
@@ -29,6 +29,9 @@ def augmentate(pics, labels = None, augmentation = False,
         All images will be randomly rotated by an angle no more than the bound. Set 
         to 0 to skip rotation.
     
+    jitter: callable class
+        A callable class that can apply color jitter on a PIL image. Defaults to none.
+        
     Returns
     ----------
     pics2: (N x H x W x C)  ndarray
@@ -53,6 +56,8 @@ def augmentate(pics, labels = None, augmentation = False,
         pic = pics[i]
         if flips[i]: pic = pic.transpose(Image.FLIP_LEFT_RIGHT)
         pic = pic.rotate(angles[i])
+        if jitter is not None: 
+            pic = jitter(pic)
         pic = np.array(pic)
         pics2.append(pic)
     shape = pics2[0].shape 

@@ -56,7 +56,8 @@ n = 50000
 epochs = CONFIG.epochs
 for epoch in range(len(accs) + 1, epochs + len(accs) + 1):
     for x , labels in dataloader(train_x, train_y, CONFIG.train_size,
-                                 cut = CONFIG.cut, mix = CONFIG.mix, onehot = True):
+                                 cut = CONFIG.cut, mix = CONFIG.mix, onehot = True,
+                                 jitter = CONFIG.jitter):
         y = net(x.to(cuda)) 
         labels = torch.tensor(labels, dtype = torch.float32, device = cuda) 
         

@@ -5,8 +5,9 @@ from augmentator import *
 
 
 def dataloader(data, labels, batch_size = 128, shuffle = True, verbose = True,
-                resize = (224,224), augmentation = True, onehot = False,
-                cut = False, mix = False, rotate = 15):
+                augmentation = True, onehot = False,
+                cut = False, mix = False, rotate = 15,
+                jitter = None):
     
     order = np.arange(labels.shape[0], dtype = 'int32')
     if shuffle: np.random.shuffle(order)
@@ -23,7 +24,8 @@ def dataloader(data, labels, batch_size = 128, shuffle = True, verbose = True,
 
         # augmentate the data
         x , l = augmentate(x, l, augmentation = augmentation, 
-                            cut = cut, mix = mix, rotate = rotate)
+                            cut = cut, mix = mix, rotate = rotate, 
+                            jitter = None if jitter is None else paddle.vision.transforms.ColorJitter(*jitter))
 
         # transpose the dimensions to match (N,C,H,W)
         x = x.transpose((0,3,1,2))

@@ -14,9 +14,7 @@ initialize the backbone network of Faster R-CNN, and then use VOC for fine tune;
 
 **1.** Clone the FasterRCNN repository.
 
-```bash
-git clone https://github.com/mskmei/FINAL-PROJECT-CV-2022Spring.git
-```
+git clone [https://github.com/mskmei/FINAL-PROJECT-CV-2022Spring.git](https://github.com/mskmei/FINAL-PROJECT-CV-2022Spring.git)
 
 **2.** Build a new environment with conda.
 Our environment is a Linux system with CUDA version == 11.4.

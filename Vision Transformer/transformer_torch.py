@@ -158,7 +158,7 @@ class VisionTransformer(torch.nn.Module):
         # class tokens and (learnable) positional encodings
         self.cls_token = torch.nn.parameter.Parameter(torch.randn((1, 1, channels)))
         self.pos_encoding = torch.nn.parameter.Parameter(
-                            torch.randn((1, patch_num + 1, 1))) if pos_encoding is True else None
+                            torch.randn((1, patch_num + 1, channels))) if pos_encoding is True else None
 
         self.dropout = torch.nn.Dropout(encoding_dropout)
 
@@ -282,4 +282,9 @@ class VisionTransformer(torch.nn.Module):
 
 
 if __name__ == '__main__':
-    pass
+    from torchinfo import summary
+    vit = VisionTransformer(32,100,240,1464,4,6,12,True)
+    print(summary(vit, (1,3,32,32)))
+    from torchvision.models import resnet18
+    vit = resnet18()
+    #print(summary(vit, (1,3,224,224))) # 11227812, 1.81G

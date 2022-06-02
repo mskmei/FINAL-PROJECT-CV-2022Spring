@@ -25,9 +25,8 @@ conda activate faster
 
 **3.** Install the needed packages.
 ```bash
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge
 pip install tensorflow
-pip install opencv-python
 cd FINAL-PROJECT-CV-2022Spring/FasterRCNN
 pip install -r requirements.txt
 ```
@@ -57,24 +56,29 @@ pip install -r requirements.txt
    
    
 ## Train
-Before training and other operations, run **evaluation.py** first to get the ground-truth so that you can get the evaluation along the way.
+Before training and other operations, run **evaluation.py** first to get the ground-truth so that you can get the evaluation along the way, and run **voc_annotation.py** to get *trainSet.txt*, *valSet.txt*, and *testSet.txt*.
 
 
-Train the model with this line of command (if you choose to train with a pretrained model else change the 'True' to 'False'):
-```bash
-python train.py --pretrained True
-```
 The code is default to use GPU when training, predicting, and testing, so if you use CPU to train the model, use this line of command:
 ```bash
 python train.py --cuda False
 ```
-Besides, considering that our implementation has two backbone to choose, the default is Resnet50, so if you want to train the model with VGG as the backbone (with GPU), use this line of command:
+
+For the three training ways:
+if you want to train the network from scratch (randomly initialize the whole network)
 ```bash
-python train.py --backbone vgg
+python train.py --pretrained=False
 ```
 
+or if you want to train the network with pretrained backbone on ImageSet
+```bash
+python train.py --pretrained=True
+```
+
+or you want to use the pretrained backbone of Mask RCNN for initialization, uncomment the two lines (123 and 124) and comment the 119 and 120 lines, and use the same command above.
+
+
 ## Test
-Before testing the model, make sure you have changed the root_path in test.py.
 Test the trained model with this line of command:
 ```bash
 python test.py --weights --path-to/your trained model
@@ -82,18 +86,15 @@ python test.py --weights --path-to/your trained model
 The default model is our pretrained model **model_data/resnet50_faster.pth** with the Resnet50 as the backbone.
 
 ## Predict
-Also, before predicting, change the root_path in predict.py.
 You can use the image **FasterRCNN/img/street.jpg** to have a look of your trained model using
 ```bash
 python predict.py --weights --path-to/your trained model --img --path-to/FasterRCNN/img/street.jpg
 ```
 
-## Pretrained Model
+## Trained Model
 There are four pretrained model you can download through Google Drive:
 Our pretrained model:
 
 resnet50_faster https://drive.google.com/file/d/1Ujds2mvsNLc8cXHH6827S-K_SfmV0Ssg/view?usp=sharing
 
-The pretrained model of Resnet50 and VGG for training:
 
-resnet50-19c8e357.pth https://drive.google.com/file/d/1Rq9Qk5xaphA56VTD2ysNvps6Ij2SPQbl/view?usp=sharing

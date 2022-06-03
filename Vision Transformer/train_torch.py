@@ -1,4 +1,3 @@
-import sched
 from dataloader_torch import * 
 from configs import CONFIG
 from transformer_torch import VisionTransformer
@@ -21,6 +20,7 @@ net = VisionTransformer(input_size        = resize[0],
                         num_heads         = CONFIG.num_heads,
                         encode_layers     = CONFIG.encode_layers,
                         pos_encoding      = CONFIG.pos_encoding,
+                        res_head          = CONFIG.res_head, 
                         linear_dropout    = CONFIG.linear_dropout,
                         attention_dropout = CONFIG.attention_dropout,
                         encoding_dropout  = CONFIG.encoding_dropout)

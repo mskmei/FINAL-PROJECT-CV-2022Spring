@@ -28,6 +28,7 @@ class CONFIG:
     num_heads         = 3         # number of heads in multihead attention
     encode_layers     = 12        # number of encoders
     pos_encoding      = True      # whether or not use the positional encoding
+    res_head          = None      # list, the size of resnet head in the front
     linear_dropout    = 0.        # dropout rate in MLP
     attention_dropout = 0.        # dropout rate in multihead attention
     encoding_dropout  = 0.        # dropout rate after positional encoding

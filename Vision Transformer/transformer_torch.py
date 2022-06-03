@@ -140,17 +140,49 @@ class VisionTransformer(torch.nn.Module):
                         patch_size = 16, 
                         num_heads = 3, encode_layers = 12, 
                         pos_encoding = True,
+                        res_head = None,
                         linear_dropout = 0., attention_dropout = 0., encoding_dropout = 0.):
+        """
+        Vision Transformer
+
+        Parameters
+        --------
+        input_size   : int, the input image should be of size input_size * input_size
+        output_size  : int, the number of classes to classify
+        channels     : int, the embedding dimension
+        hidden_size  : int, the size of hidden layer in MLP
+        patch_size   : int, the size of a patch
+        num_heads    : int, number of heads
+        encode_layers: int, number of encoders
+        pos_encoding : bool, whether or not use the positional encoding
+        res_head     : list, the resnet blocks in each stage for resnet-VIT, defaults to None
+        linear_dropout   : float, dropout rate in MLP
+        attention_dropout: float, dropout rate in multihead attention
+        encoding_dropout : float, dropout rate after positional encoding
+
+
+        Reference: 
+        https://arxiv.org/abs/2010.11929 
+        """
         super().__init__()
+
+        self.res_head = res_head
+        if self.res_head is not None:
+            from resnet_torch import ResHead
+            # the input size corresponds to the size after ResNet
+            input_size = input_size // (2 ** (1 + len(self.res_head)))
+            self.res_head = ResHead(self.res_head)
 
         assert input_size % patch_size == 0, 'Input size must be divisible by patch size.'
         self.input_size = input_size
         self.patch_size = patch_size
 
         # convolution on each patch is the projection
-        self.proj = torch.nn.Conv2d(in_channels = 3, out_channels = channels,
-                                     kernel_size = patch_size, stride = patch_size,
-                                     padding = 'valid')
+        self.proj = torch.nn.Conv2d(
+            in_channels = 3 if self.res_head is None else 2**(5+len(res_head)),
+                                    out_channels = channels,
+                                    kernel_size = patch_size, stride = patch_size,
+                                    padding = 'valid')
 
         # num of patches
         patch_num = (input_size // patch_size) ** 2 
@@ -178,6 +210,10 @@ class VisionTransformer(torch.nn.Module):
     def forward(self, x):
         """Input: torch tensor x with shape [batch_size, 3, height, width]"""
     
+        # if there is a ResNet head
+        if self.res_head is not None: 
+            x = self.res_head(x) 
+
         # [batch_size, 3, height, width] -> [batch_size, channels, patch_x, patch_y] by conv
         x = self.proj(x)  
 
@@ -282,9 +318,4 @@ class VisionTransformer(torch.nn.Module):
 
 
 if __name__ == '__main__':
-    from torchinfo import summary
-    vit = VisionTransformer(32,100,240,1464,4,6,12,True)
-    print(summary(vit, (1,3,32,32)))
-    from torchvision.models import resnet18
-    vit = resnet18()
-    #print(summary(vit, (1,3,224,224))) # 11227812, 1.81G
+    pass

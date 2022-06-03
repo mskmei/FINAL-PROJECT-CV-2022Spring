@@ -138,6 +138,7 @@ class VisionTransformer(paddle.nn.Layer):
                         patch_size = 16, 
                         num_heads = 3, encode_layers = 12, 
                         pos_encoding = True,
+                        res_head = None,
                         linear_dropout = 0., attention_dropout = 0., encoding_dropout = 0.):   
         """
         Vision Transformer
@@ -152,6 +153,7 @@ class VisionTransformer(paddle.nn.Layer):
         num_heads    : int, number of heads
         encode_layers: int, number of encoders
         pos_encoding : bool, whether or not use the positional encoding
+        res_head     : list, the resnet blocks in each stage for resnet-VIT, defaults to None
         linear_dropout   : float, dropout rate in MLP
         attention_dropout: float, dropout rate in multihead attention
         encoding_dropout : float, dropout rate after positional encoding
@@ -162,14 +164,23 @@ class VisionTransformer(paddle.nn.Layer):
         """
         super().__init__()
 
-        assert input_size % patch_size == 0, 'Input size must be divisible by patch size.'
+        self.res_head = res_head
+        if self.res_head is not None:
+            from resnet_paddle import ResHead
+            # the input size corresponds to the size after ResNet
+            input_size = input_size // (2 ** (1 + len(res_head)))
+            self.res_head = ResHead(self.res_head)
+
+        assert input_size % patch_size == 0, 'Input size (after ResNet heads) must be divisible by patch size.'
         self.input_size = input_size
         self.patch_size = patch_size
 
         # convolution on each patch is the projection
-        self.proj = paddle.nn.Conv2D(in_channels = 3, out_channels = channels,
-                                     kernel_size = patch_size, stride = patch_size,
-                                     padding = 'VALID')
+        self.proj = paddle.nn.Conv2D(
+            in_channels = 3 if self.res_head is None else 2**(5+len(res_head)),
+                                    out_channels = channels,
+                                    kernel_size = patch_size, stride = patch_size,
+                                    padding = 'VALID')
 
         # num of patches
         patch_num = (input_size // patch_size) ** 2 
@@ -200,6 +211,10 @@ class VisionTransformer(paddle.nn.Layer):
     def forward(self, x):
         """Input: paddle tensor x with shape [batch_size, 3, height, width]"""
     
+        # if there is a ResNet head
+        if self.res_head is not None: 
+            x = self.res_head(x) 
+
         # [batch_size, 3, height, width] -> [batch_size, channels, patch_x, patch_y] by conv
         x = self.proj(x)  
 

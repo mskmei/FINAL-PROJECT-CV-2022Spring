@@ -1,14 +1,5 @@
-- [<div align="center">Introduction</div>](#-div-align--center--introduction--div-)
-- [<div align="center">Dataset</div>](#-div-align--center--dataset--div-)
-- [<div align="center">A Quick Start</div>](#-div-align--center--a-quick-start--div-)
-- [<div align="center">Training</div>](#-div-align--center--training--div-)
-- [<div align="center">Testing</div>](#-div-align--center--testing--div-)
-- [<div align="center">Models</div>](#-div-align--center--models--div-)
-- [<div align="center">Data Preparation</div>](#-div-align--center--data-preparation--div-)
-
-
 ## <div align="center">Introduction</div>
-This project is about experimenting with vision transformer on CIFAR-100 dataset. 
+This project is about reproducing the vision transformer and training on CIFAR-100 dataset from scratch. The vision transformer is  <font color=red>handcrafted</font>.
 
 Reference: https://arxiv.org/abs/2010.11929
 

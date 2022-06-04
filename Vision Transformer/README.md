@@ -1,5 +1,6 @@
 ## <div align="center">Introduction</div>
-This project is about reproducing the vision transformer and training on CIFAR-100 dataset from scratch. The vision transformer is  <font color=red>handcrafted</font>.
+This project is about reproducing the vision transformer and training on CIFAR-100 dataset from scratch. The vision transformer is  
+**handcrafted**.
 
 Reference: https://arxiv.org/abs/2010.11929
 
@@ -12,7 +13,7 @@ Here we offer two notebooks on different platforms to play around. In AIStudio w
  
 [Open In AIStudio](https://aistudio.baidu.com/aistudio/projectdetail/4025759?contributionType=1&shared=1)
  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Vision Transformer/notebooks/CIFAR100_VisionTransformer_torch.ipynb)</div>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Vision%2FTransformer/notebooks/CIFAR100_VisionTransformer_torch.ipynb)</div>
  
   
 ## <div align="center">Training</div>
@@ -21,10 +22,10 @@ We have offered two entrances for training, **PaddlePaddle** and **PyTorch**. On
 To start with, you need to get access to our files. You can try either
 
 ```bash
-git clone https://github.com/mskmei/MIDTERM-PROJECT-CV-2022Spring.git
-cd MIDTERM-PROJECT-CV-2022Spring/CIFAR100
+git clone https://github.com/mskmei/FINAL-PROJECT-CV-2022Spring.git
+cd FINAL-PROJECT-CV-2022Spring/Vision Transformer
 ```
-or download our project as a zip and unzip it locally and turn to "CIFAR100" directory. Then we come up with two choices.
+or download our project as a zip and unzip it locally and turn to "Vision Transformer" directory. Then we come up with two choices.
  
  <h2>Choice A. PaddlePaddle</h2>
 <h3>Dependencies</h3>

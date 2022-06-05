@@ -13,7 +13,7 @@ Here we offer two notebooks on different platforms to play around. In AIStudio w
  
 [Open In AIStudio](https://aistudio.baidu.com/aistudio/projectdetail/4025759?contributionType=1&shared=1)
  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Vision%2FTransformer/notebooks/CIFAR100_VisionTransformer_torch.ipynb)</div>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/VisionTransformer/notebooks/CIFAR100_VisionTransformer_torch.ipynb)</div>
  
   
 ## <div align="center">Training</div>
@@ -23,9 +23,9 @@ To start with, you need to get access to our files. You can try either
 
 ```bash
 git clone https://github.com/mskmei/FINAL-PROJECT-CV-2022Spring.git
-cd FINAL-PROJECT-CV-2022Spring/Vision Transformer
+cd FINAL-PROJECT-CV-2022Spring/VisionTransformer
 ```
-or download our project as a zip and unzip it locally and turn to "Vision Transformer" directory. Then we come up with two choices.
+or download our project as a zip and unzip it locally and turn to "VisionTransformer" directory. Then we come up with two choices.
  
  <h2>Choice A. PaddlePaddle</h2>
 <h3>Dependencies</h3>

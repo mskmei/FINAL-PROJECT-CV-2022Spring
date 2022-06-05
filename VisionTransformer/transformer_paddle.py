@@ -1,4 +1,4 @@
-# Reproduce of vision transformer in paddlepaddle
+# Reproduction of vision transformer in paddlepaddle
 # Author    : https://github.com/ForeverHaibara 
 # Reference : https://github.com/google-research/vision_transformer 
 

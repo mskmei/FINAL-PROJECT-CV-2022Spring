@@ -1,4 +1,4 @@
-# Reproduce of vision transformer in pytorch
+# Reproduction of vision transformer in pytorch
 # Author    : https://github.com/ForeverHaibara 
 # Reference : https://github.com/google-research/vision_transformer 
 

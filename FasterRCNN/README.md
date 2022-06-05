@@ -8,7 +8,16 @@ We have taken on three ways to train Faster RCNN:
 (b) use the parameters of Resnet pretrained on ImageNet to initialize the backbone, and then use VOC to fine tune;
 
 (b) use the backbone network parameters of Mask R-CNN pretrained on COCO, 
-initialize the backbone network of Faster R-CNN, and then use VOC for fine tune;
+initialize the backbone network of Faster R-CNN, and then use VOC for fine tune.
+
+And the performances are shown below:
+
+| model | mAP | mIOU | acc |
+|-------|-----|------|-----|
+|ImageNet-based|0.649|0.608|0.806|
+|COCO-based|0.676|0.597|0.800|
+|Random-Initialized|0.125|0.161|0.356|
+
 
 ## Installation
 

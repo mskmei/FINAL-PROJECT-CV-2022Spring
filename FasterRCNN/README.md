@@ -62,7 +62,7 @@ pip install -r requirements.txt
   	# ... and several other directories ...
 
    
-   
+We use the training data and validation data of VOC2007 as our training set and use the testing data of VOC2007 as our validation set. When testing the model, we use the validation data of VOC2012 as our testing set.   
    
 ## Train
 Before training and other operations, run **evaluation.py** first to get the ground-truth so that you can get the evaluation along the way, and run **voc_annotation.py** to get *trainSet.txt*, *valSet.txt*, and *testSet.txt*.

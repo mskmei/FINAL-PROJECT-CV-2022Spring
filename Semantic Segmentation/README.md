@@ -20,11 +20,11 @@ Furthermore, these three models are all pretrained on the Cityscapes dataset. Yo
  <summary>Quick Start</summary>
   The 3 "ipynb" files in current directory can help you get a quick start. These three "ipynb" files are carried out on colab so you are strongly recommended to open them on colab. The files will provide you with a view of our work and you can view the example videos online(video view can only be done on colab). To open them on colab, you can simply click:
  
- PSP101:  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Semantic%20Segamentation/PSP101_pytorch.ipynb)  
+ PSP101:  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Semantic%20Segmentation/PSP101_pytorch.ipynb)  
  
- PSA101:  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Semantic%20Segamentation/PSA101.ipynb)  
+ PSA101:  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Semantic%20Segmentation/PSA101.ipynb)  
  
- Deeplabv3:  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Semantic%20Segamentation/deeplabv3.ipynb)  
+ Deeplabv3:  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mskmei/FINAL-PROJECT-CV-2022Spring/blob/main/Semantic%20Segmentation/deeplabv3.ipynb)  
  
  If you only need to test the example video we provide, then you only need to execute each line in colab in turn. If you want to test your own video or use your own weight, you just need to change the "gdown" function. It should look like:
  ```python

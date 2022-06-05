@@ -70,12 +70,12 @@ if you want to train the network from scratch (randomly initialize the whole net
 python train.py --pretrained=False
 ```
 
-or if you want to train the network with pretrained backbone on ImageSet
+or if you want to train the network with pretrained backbone on ImageNet
 ```bash
 python train.py --pretrained=True
 ```
 
-or you want to use the pretrained backbone of Mask RCNN for initialization, uncomment the two lines (123 and 124) and comment the 119 and 120 lines, and use the same command above.
+or if you want to use the pretrained backbone of Mask RCNN for initialization, uncomment the three lines (123 - 125) and comment the 119 and 120 lines in **nets/resnet50.py**, and then use the same command above.
 
 
 ## Test
@@ -92,9 +92,14 @@ python predict.py --weights --path-to/your trained model --img --path-to/FasterR
 ```
 
 ## Trained Model
-There are four pretrained model you can download through Google Drive:
-Our pretrained model:
+Since our code can not load the pretrained weights downloaded from Pytorch'official directly, we have match the corresponding layers manually and create **mask.pth** to store it.
 
-resnet50_faster https://drive.google.com/file/d/1Ujds2mvsNLc8cXHH6827S-K_SfmV0Ssg/view?usp=sharing
+**mask.pth**  https://drive.google.com/file/d/1IuGINX7m8GgM3GkDhOXa9k92Bi20E9Pi/view?usp=sharing
 
+There are three pretrained model you can download through Google Drive:
 
+**resnet50_faster.pth** https://drive.google.com/file/d/1Ujds2mvsNLc8cXHH6827S-K_SfmV0Ssg/view?usp=sharing
+
+**mask_faster.pth**     https://drive.google.com/file/d/1icZWvFdUXmKHTi719KJD_4gbl-Y73DUI/view?usp=sharing
+
+**scratch_faster.pth**  https://drive.google.com/file/d/1BNturJuVtnZBV4J_pvCtrUSJeZrJM7aS/view?usp=sharing
